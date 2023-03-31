@@ -1,0 +1,264 @@
+import PySimpleGUI as sg
+import binascii
+import hashlib
+import base64
+from pyDes import *
+
+data = '000000000000000000000000000000'
+
+
+def lamlist(l1, l2, l3, l4, l5, l6, l7, l8):
+    funs = []
+    for i in l1:
+        for j in l2:
+            for k in l3:
+                for l in l4:
+                    for m in l5:
+                        for n in l6:
+                            for t in l7:
+                                for u in l8:
+                                    x = lambda i=i, j=j, k=k, l=l, m=m, n=n, t=t, u=u: (i, j, k, l, m, n, t, u)
+                                    funs.append(x)
+    return funs
+sg.theme("GreenMono")
+tab1=[
+[sg.Text("Nhập Key :",text_color="Black",justification="left")],
+    [sg.Input(key='1K1',background_color="Green",size=(2,5)),
+     sg.Input(key='1K2',background_color="Green",size=(2,5)),
+     sg.Input(key='1K3',background_color="Green",size=(2,5)),
+     sg.Input(key='1K4',background_color="Green",size=(2,5)),
+     sg.Input(key='1K5',size=(2,5)),
+     sg.Input(key='1K6',size=(2,5)),
+     sg.Input(key='1K7',size=(2,5)),
+     sg.Input(key='1K8',size=(2,5)),
+     sg.Input(key='1K9',background_color="Green",size=(2,5)),
+     sg.Input(key='1K10',background_color="Green",size=(2,5)),
+     sg.Input(key='1K11',background_color="Green",size=(2,5)),
+     sg.Input(key='1K12',background_color="Green",size=(2,5)),
+     sg.Input(key='1K13',size=(2,5)),
+     sg.Input(key='1K14',size=(2,5)),
+     sg.Input(key='1K15',size=(2,5)),
+     sg.Input(key='1K16',size=(2,5)),
+     sg.Input(key='1K17',background_color="Green",size=(2,5)),
+     sg.Input(key='1K18',background_color="Green",size=(2,5)),
+     sg.Input(key='1K19',background_color="Green",size=(2,5)),
+     sg.Input(key='1K20',background_color="Green",size=(2,5)),
+     sg.Input(key='1K21',size=(2,5)),
+     sg.Input(key='1K22',size=(2,5)),
+     sg.Input(key='1K23',size=(2,5)),
+     sg.Input(key='1K24',size=(2,5)),
+     sg.Input(key='1K25',background_color="Green",size=(2,5)),
+     sg.Input(key='1K26',background_color="Green",size=(2,5)),
+     sg.Input(key='1K27',background_color="Green",size=(2,5)),
+     sg.Input(key='1K28',background_color="Green",size=(2,5)),
+     sg.Input(key='1K29',size=(2,5)),
+     sg.Input(key='1K30',size=(2,5)),
+     sg.Input(key='1K31',size=(2,5)),
+     sg.Input(key='1K32',size=(2,5)),
+     ],
+    [sg.Text("Nhập KCV :", text_color="Black", justification="left")],
+    [sg.Input(key='KCV', size=(8, 5))],
+
+
+    [sg.Button("Check",key="Check1"),
+     sg.Text('KEY: ',background_color="Green",text_color="Black",justification="left"),
+     sg.Input('',key='KEYOK',size=(60,5),justification="left"),
+     sg.Text('KCV: ',background_color="Green",text_color="Black",justification="left"),
+     sg.Input('', key='KCVOK',size=(8,5),justification="left")],
+
+    [sg.Button("EXIT",key="exit")],
+]
+tab2=[
+[sg.Text("nhập key cần check:",background_color="Green",text_color="Yellow",justification="left")],
+    [sg.Text("Component 1:",text_color="Black",justification="left")],
+    [sg.Input(key='D1K1',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K2',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K3',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K4',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K5',size=(2,5)),
+     sg.Input(key='D1K6',size=(2,5)),
+     sg.Input(key='D1K7',size=(2,5)),
+     sg.Input(key='D1K8',size=(2,5)),
+     sg.Input(key='D1K9',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K10',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K11',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K12',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K13',size=(2,5)),
+     sg.Input(key='D1K14',size=(2,5)),
+     sg.Input(key='D1K15',size=(2,5)),
+     sg.Input(key='D1K16',size=(2,5)),
+     sg.Input(key='D1K17',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K18',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K19',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K20',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K21',size=(2,5)),
+     sg.Input(key='D1K22',size=(2,5)),
+     sg.Input(key='D1K23',size=(2,5)),
+     sg.Input(key='D1K24',size=(2,5)),
+     sg.Input(key='D1K25',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K26',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K27',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K28',background_color="Green",size=(2,5)),
+     sg.Input(key='D1K29',size=(2,5)),
+     sg.Input(key='D1K30',size=(2,5)),
+     sg.Input(key='D1K31',size=(2,5)),
+     sg.Input(key='D1K32',size=(2,5)),
+     ],
+
+    [sg.Text("Component 2:", text_color="Black", justification="left")],
+    [sg.Input(key='D2K1',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K2',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K3',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K4',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K5', size=(2, 5)),
+     sg.Input(key='D2K6', size=(2, 5)),
+     sg.Input(key='D2K7', size=(2, 5)),
+     sg.Input(key='D2K8', size=(2, 5)),
+     sg.Input(key='D2K9',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K10',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K11',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K12',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K13', size=(2, 5)),
+     sg.Input(key='D2K14', size=(2, 5)),
+     sg.Input(key='D2K15', size=(2, 5)),
+     sg.Input(key='D2K16', size=(2, 5)),
+     sg.Input(key='D2K17',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K18',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K19',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K20',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K21', size=(2, 5)),
+     sg.Input(key='D2K22', size=(2, 5)),
+     sg.Input(key='D2K23', size=(2, 5)),
+     sg.Input(key='D2K24', size=(2, 5)),
+     sg.Input(key='D2K25',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K26',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K27',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K28',background_color="Green", size=(2, 5)),
+     sg.Input(key='D2K29', size=(2, 5)),
+     sg.Input(key='D2K30', size=(2, 5)),
+     sg.Input(key='D2K31', size=(2, 5)),
+     sg.Input(key='D2K32', size=(2, 5)),
+     ],
+
+    [sg.Text("Nhập KCV :", text_color="Black", justification="left")],
+    [sg.Input(key='KCVtab2', size=(8, 5))],
+
+    [sg.Button("Check",key="Check2")],
+    [sg.Text('Component 1: ',background_color="Green",text_color="Black",justification="left"),
+     sg.Input('',key='KEY1tab2',size=(60,5),justification="left")],
+
+    [sg.Text('Component 2: ',background_color="Green",text_color="Black",justification="left"),
+     sg.Input('',key='KEY2tab2',size=(60,5),justification="left")],
+
+    [sg.Text('KCV :            ',background_color="Green",text_color="Black",justification="left"),
+        sg.Input('', key='KCVOKtab2',size=(8,5),justification="left")],
+
+    [sg.Button("EXIT",key="exit1")],
+
+]
+layout = [[sg.TabGroup([
+   [sg.Tab('Single', tab1),
+   sg.Tab('Double', tab2)]])],
+]
+window = sg.Window("Check KEY",layout)
+
+while True:
+
+ event,values = window.read()
+ if event == sg.WINDOW_CLOSED or event == "exit" or event == "exit1":
+  break
+ if event == "Check1":
+  DanhSachKEY = []
+
+  funlist = [lamlist(values['1K1'],values['1K2'],values['1K3'],values['1K4'],values['1K5'],values['1K6'],values['1K7'],values['1K8']),
+             lamlist(values['1K9'],values['1K10'],values['1K11'],values['1K12'],values['1K13'],values['1K14'],values['1K15'],values['1K16']),
+             lamlist(values['1K17'],values['1K18'],values['1K19'],values['1K20'],values['1K21'],values['1K22'],values['1K23'],values['1K24']),
+             lamlist(values['1K25'],values['1K26'],values['1K27'],values['1K28'],values['1K29'],values['1K30'],values['1K31'],values['1K32'])]
+  for f1 in funlist[0]:
+   k1,k2,k3,k4,k5,k6,k7,k8 = f1()
+   for f2 in funlist[1]:
+    k9, k10, k11, k12, k13, k14, k15, k16 = f2()
+    for f3 in funlist[2]:
+     k17, k18, k19, k20, k21, k22, k23, k24 = f3()
+     for f4 in funlist[3]:
+      k25, k26, k27, k28, k29, k30, k31, k32 = f4()
+      CPN1 = k1+k2+k3+k4+k5+k6+k7+k8+k9+k10+k11+k12+k13+k14+k15+k16\
+             +k17+k18+k19+k20+k21+k22+k23+k24+k25+k26+k27+k28+k29+k30+k31+k32
+      DanhSachKEY.append(CPN1)
+  kcv = values['KCV']
+  KCV = kcv.upper()
+  for DS in DanhSachKEY:
+    KEY1 = binascii.unhexlify(DS)
+    data1 = binascii.unhexlify(data)
+    k = triple_des(KEY1,ECB,"\0\0\0\0\0\0\0\0", pad=None, padmode=PAD_PKCS5)
+    d = k.encrypt(data1)
+    a = str(binascii.hexlify(d)[0:8])
+    if ((a[2:8].upper()) == KCV):
+        window["KEYOK"].update((DS[0:4]+' - '+DS[4:8]+' - '+DS[8:12]+' - '+DS[12:16]+' - '+DS[16:20]+' - '+DS[20:24]+' - '+DS[24:28]+' - '+DS[28:32]).upper())
+        window["KCVOK"].update(a[2:8].upper())
+ if event == "Check2":
+     DanhSachKeyXOR = []
+     DanhSachKey1 = []
+     DanhSachKey2 = []
+     funlist1 = [lamlist(values['D1K1'], values['D1K2'], values['D1K3'], values['D1K4'], values['D1K5'], values['D1K6'],
+                        values['D1K7'], values['D1K8']),
+                lamlist(values['D1K9'], values['D1K10'], values['D1K11'], values['D1K12'], values['D1K13'], values['D1K14'],
+                        values['D1K15'], values['D1K16']),
+                lamlist(values['D1K17'], values['D1K18'], values['D1K19'], values['D1K20'], values['D1K21'], values['D1K22'],
+                        values['D1K23'], values['D1K24']),
+                lamlist(values['D1K25'], values['D1K26'], values['D1K27'], values['D1K28'], values['D1K29'], values['D1K30'],
+                        values['D1K31'], values['D1K32'])]
+     for f1 in funlist1[0]:
+         h1, h2, h3, h4, h5, h6, h7, h8 = f1()
+         for f2 in funlist1[1]:
+             h9, h10, h11, h12, h13, h14, h15, h16 = f2()
+             for f3 in funlist1[2]:
+                 h17, h18, h19, h20, h21, h22, h23, h24 = f3()
+                 for f4 in funlist1[3]:
+                     h25, h26, h27, h28, h29, h30, h31, h32 = f4()
+                     CPN1D = h1 + h2 + h3 + h4 + h5 + h6 + h7 + h8 + h9 + h10 + h11 + h12 + h13 + h14 + h15 + h16 \
+                            + h17 + h18 + h19 + h20 + h21 + h22 + h23 + h24 + h25 + h26 + h27 + h28 + h29 + h30 + h31 + h32
+                     DanhSachKey1.append(CPN1D)
+                     #print(CPN1D)
+
+     funlist2 = [lamlist(values['D2K1'], values['D2K2'], values['D2K3'], values['D2K4'], values['D2K5'], values['D2K6'],
+                         values['D2K7'], values['D2K8']),
+                 lamlist(values['D2K9'], values['D2K10'], values['D2K11'], values['D2K12'], values['D2K13'],
+                         values['D2K14'],
+                         values['D2K15'], values['D2K16']),
+                 lamlist(values['D2K17'], values['D2K18'], values['D2K19'], values['D2K20'], values['D2K21'],
+                         values['D2K22'],
+                         values['D2K23'], values['D2K24']),
+                 lamlist(values['D2K25'], values['D2K26'], values['D2K27'], values['D2K28'], values['D2K29'],
+                         values['D2K30'],
+                         values['D2K31'], values['D2K32'])]
+     for f1 in funlist2[0]:
+         g1, g2, g3, g4, g5, g6, g7, g8 = f1()
+         for f2 in funlist2[1]:
+             g9, g10, g11, g12, g13, g14, g15, g16 = f2()
+             for f3 in funlist2[2]:
+                 g17, g18, g19, g20, g21, g22, g23, g24 = f3()
+                 for f4 in funlist2[3]:
+                     g25, g26, g27, g28, g29, g30, g31, g32 = f4()
+                     CPN2D = g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 + g9 + g10 + g11 + g12 + g13 + g14 + g15 + g16 \
+                             + g17 + g18 + g19 + g20 + g21 + g22 + g23 + g24 + g25 + g26 + g27 + g28 + g29 + g30 + g31 + g32
+                     DanhSachKey2.append(CPN2D)
+                     #print(DanhSachKey2)
+     kcvd = values['KCVtab2']
+     KCVN = kcvd[0:6].upper()
+     for dsk1 in DanhSachKey1:
+         for dsk2 in DanhSachKey2:
+             XOR = hex(int(dsk1,16) ^ int(dsk2,16))
+             A = str(XOR)[2:34]
+             A1 = binascii.unhexlify(A)
+             dataD = binascii.unhexlify('000000000000000000000000000000')
+             k = triple_des(A1, ECB, "\0\0\0\0\0\0\0\0", pad=None, padmode=PAD_PKCS5)
+             d = k.encrypt(dataD)
+             KCVD =  str(binascii.hexlify(d)[0:8])
+             KCVD1 = KCVD[2:8].upper()
+             #print(KCVD1)
+             #print(KCVN)
+             if (KCVD1 == KCVN):
+                 window["KEY1tab2"].update((str(dsk1)[0:4]+' - '+str(dsk1)[4:8]+' - '+str(dsk1)[8:12]+' - '+str(dsk1)[12:16]+' - '+str(dsk1)[16:20]+' - '+str(dsk1)[20:24]+' - '+str(dsk1)[24:28]+' - '+str(dsk1)[28:32]).upper())
+                 window["KEY2tab2"].update((str(dsk2)[0:4]+' - '+str(dsk2)[4:8]+' - '+str(dsk2)[8:12]+' - '+str(dsk2)[12:16]+' - '+str(dsk2)[16:20]+' - '+str(dsk2)[20:24]+' - '+str(dsk2)[24:28]+' - '+str(dsk2)[28:32]).upper())
+                 window["KCVOKtab2"].update(KCVD1)
